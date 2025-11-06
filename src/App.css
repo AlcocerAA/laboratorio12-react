@@ -1,0 +1,143 @@
+/* ===== Star Wars Theme ===== */
+:root{
+  --sw-bg:#000;
+  --sw-text:#e6edf3;
+  --sw-yellow:#ffe81f;   /* crawl */
+  --sw-blue:#00b4ff;     /* jedi */
+  --sw-red:#ff2a2a;      /* sith */
+  --sw-gray:#30363d;
+  --sw-card:#0d0f12;
+  --sw-card-2:#13161b;
+}
+
+/* Starfield animado (solo CSS) */
+body{
+  background: radial-gradient(ellipse at center, #0b0e13 0%, #000 60%, #000 100%);
+  color: var(--sw-text);
+  min-height:100vh;
+  overflow-x:hidden;
+  font-synthesis-weight: none;
+}
+
+#starfield, #starfield:before, #starfield:after{
+  position: fixed;
+  top:0;left:0;right:0;bottom:0;
+  content:"";
+  z-index:-1;
+  background: transparent;
+}
+#starfield:before{
+  box-shadow:
+    2vw 10vh #fff, 35vw 30vh #fff, 70vw 15vh #fff, 90vw 80vh #fff,
+    10vw 60vh #fff, 50vw 70vh #fff, 80vw 40vh #fff, 20vw 85vh #fff,
+    60vw 20vh #fff, 15vw 25vh #fff, 30vw 75vh #fff, 40vw 50vh #fff;
+  width:1px;height:1px;
+  animation: drift 120s linear infinite;
+  opacity:.6;
+}
+#starfield:after{
+  box-shadow:
+    5vw 20vh #fff, 25vw 55vh #fff, 55vw 10vh #fff, 85vw 30vh #fff,
+    12vw 40vh #fff, 44vw 15vh #fff, 66vw 66vh #fff, 77vw 77vh #fff,
+    33vw 33vh #fff, 11vw 74vh #fff, 22vw 90vh #fff, 91vw 12vh #fff;
+  width:2px;height:2px;
+  animation: drift 180s linear infinite reverse;
+  opacity:.35;
+}
+@keyframes drift{from{transform:translateY(0)}to{transform:translateY(2000px)}}
+
+/* Cards estilo “panel holo” */
+.card{
+  background: linear-gradient(180deg, var(--sw-card) 0%, var(--sw-card-2) 100%);
+  color: var(--sw-text);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 16px;
+  box-shadow: 0 0 0 1px rgba(0,180,255,.08), 0 10px 30px rgba(0,0,0,.35);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  will-change: transform;
+}
+.card:hover{
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 0 0 1px rgba(0,180,255,.35), 0 20px 50px rgba(0,0,0,.5);
+  border-color: rgba(0,180,255,.35);
+}
+
+.card-header{
+  background: linear-gradient(90deg, rgba(0,180,255,.15), rgba(255,232,31,.08));
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+/* Título estilo STAR WARS (texto + outline + skew) */
+.sw-title{
+  font-weight:900;
+  letter-spacing:.04em;
+  color: var(--sw-yellow);
+  text-shadow:
+    0 0 6px rgba(255,232,31,.5),
+    0 0 20px rgba(255,232,31,.25);
+  transform: skewX(-6deg);
+}
+
+/* Botones outline “sable” */
+.btn-outline-secondary{
+  border-color: rgba(0,180,255,.35);
+  color:#cfefff;
+}
+.btn-outline-secondary:hover{
+  border-color: rgba(0,180,255,.8);
+  box-shadow: 0 0 12px rgba(0,180,255,.55);
+  color:#fff;
+}
+
+/* Spinner “lightsaber” */
+.lightsaber{
+  width:160px;height:6px;border-radius:4px;position:relative;overflow:hidden;
+  background: linear-gradient(90deg,#222 0 24%,transparent 24%);
+  box-shadow: inset 0 0 6px #000;
+}
+.lightsaber::after{
+  content:"";position:absolute;left:24%;top:0;height:100%;width:0;
+  background: linear-gradient(90deg, rgba(0,180,255,.1), var(--sw-blue), rgba(0,180,255,.1));
+  box-shadow: 0 0 12px var(--sw-blue), 0 0 24px var(--sw-blue), inset 0 0 6px #fff;
+  animation: ignite .9s ease-in-out infinite alternate;
+}
+@keyframes ignite{from{width:0}to{width:76%}}
+
+/* Item de personaje con borde neon y transición */
+.sw-person{
+  border:1px solid rgba(0,180,255,.15);
+  border-radius:12px;
+  background: linear-gradient(180deg, rgba(0,180,255,.05), rgba(0,0,0,.0));
+  transition: border-color .3s ease, box-shadow .3s ease, transform .2s ease;
+}
+.sw-person:hover{
+  border-color: rgba(255,232,31,.35);
+  box-shadow: 0 0 12px rgba(255,232,31,.25);
+  transform: translateY(-1px);
+}
+
+/* Badges con glow */
+.badge.bg-secondary{ background: linear-gradient(90deg,#222,#333); border:1px solid rgba(255,255,255,.08); }
+.badge.bg-dark{ border:1px solid rgba(255,255,255,.08); }
+
+/* Crawl opcional */
+.crawl-wrap{
+  perspective: 300px;
+  overflow:hidden;
+  height: 260px;
+  border-radius: 12px;
+  border:1px solid rgba(255,255,255,.06);
+  background: radial-gradient(ellipse at bottom, #031019 0%, #000 65%);
+}
+.crawl{
+  position:relative; top:100%; transform-origin:50% 100%;
+  animation: crawl 30s linear infinite;
+  color: var(--sw-yellow);
+  font-weight:700; letter-spacing:.02em; line-height:1.6;
+  text-align:center; padding:0 28px;
+  text-shadow: 0 0 6px rgba(255,232,31,.35);
+}
+@keyframes crawl{
+  0%{ top:100%; transform: rotateX(25deg)  translateZ(0); }
+  100%{ top:-200%; transform: rotateX(25deg) translateZ(-200px); }
+}
